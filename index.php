@@ -45,7 +45,8 @@ $damageMatrix = array(
   /*24stronghold*/array(0, 35, 35, 40, 40, 35, 10, 15, 0, 0, 0, 0, 45, 0, 35, 10, 0, 0, 0, 0, 0, 35, 10, 0, 0)
 );
 
-$unitA = $healthA = $terrainA = $unitD = $healthD = $terrainD = $weather = 0;
+$unitA = $unitD = 1;
+$healthA = $terrainA = $healthD = $terrainD = $weather = 0;
 $healthA = $healthD = 100;
 $critA = $critD = False;
 $spaces = 0;
