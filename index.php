@@ -143,7 +143,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
     <select name="terrainA" id="terrainA" form="calc-form"><?php
       $i = 0;
       foreach($terrainNames as $terrainName) {
-        echo "<option value=" . $i . ($i == $terrainA ? " selected" : "") .  ">" . $terrainName . "</option>";
+        echo '<option value=' . $i . ($i == $terrainA ? ' selected' : '') .  '>' . $terrainName . '</option>';
         $i++;
       }
     ?></select>
@@ -156,7 +156,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
     <select name="unitD" id="unitD" form="calc-form"><?php
       $i = 0;
       foreach($unitNames as $unitName) {
-        echo "<option value=" . $i . ($i == $unitD ? " selected" : "") .   ">" . $unitName . "</option>";
+        echo '<option value=' . $i . ($i == $unitD ? ' selected' : '') .   '>' . $unitName . '</option>';
         $i++;
       }
     ?></select>
@@ -164,11 +164,11 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
     <select name="terrainD" id="terrainD" form="calc-form"><?php
       $i = 0;
       foreach($terrainNames as $terrainName) {
-        echo "<option value=" . $i . ($i == $terrainD ? " selected" : "") .  ">" . $terrainName . "</option>";
+        echo '<option value=' . $i . ($i == $terrainD ? ' selected' : '') .  '>' . $terrainName . '</option>';
         $i++;
       }
     ?></select>
-    <label><?php echo '<input type="checkbox" id="critD" name="critD"' . ($critD ? " checked" : "") . '>' ?>Crit</label>
+    <label><?php echo '<input type="checkbox" id="critD" name="critD"' . ($critD ? ' checked' : '') . '>' ?>Crit</label>
   </div>
 
   <div id="div-conditions" class="main-div">
@@ -178,7 +178,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
     <select name="weather" id="weather" form="calc-form"><?php
       $i = 0;
       foreach($weathers as $weatherName) {
-        echo "<option value=" . $i . ($i == $weather ? " selected" : "") .  ">" . $weatherName . "</option>";
+        echo '<option value=' . $i . ($i == $weather ? ' selected' : '') .  '>' . $weatherName . '</option>';
         $i++;
       }
     ?></select>
@@ -191,7 +191,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
 
 <div id="div-result" class="main-div">
   <?php
-  echo "<h2>Result:</h2>";
+  echo '<h2>Result:</h2>';
   echo calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces);
   ?>
 </div>
