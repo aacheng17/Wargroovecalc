@@ -126,9 +126,9 @@ function attackError($unitA, $unitD, $spaces, $weather) {
     $rangeMod = $weather == 1 ? -1 : 1;
   }
   if ($spaces < $unitRangesMin[$unitA] || $spaces > $unitRangesMax[$unitA] + $rangeMod) {
-    return 0;
+    return -2;
   }
-  return -2;
+  return 0;
 }
 
 function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $spaces, $weather) {
