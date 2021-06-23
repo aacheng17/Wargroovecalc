@@ -133,7 +133,7 @@ function attackError($unitA, $unitD, $spaces, $weather) {
 
 function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $spaces, $weather) {
   $attackErr = attackError($unitA, $unitD, $spaces, $weather);
-  if ($attackErr) != 0) {
+  if ($attackErr != 0) {
     return array($attackErr => 100);
   }
   if ($healthA <= 0) return array(0 => 100);
@@ -179,7 +179,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
 
 function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces, $attackResults) {
   $attackErr = attackError($unitA, $unitD, $spaces, $weather);
-  if ($attackErr) != 0) {
+  if ($attackErr != 0) {
     return array($attackErr => 100);
   }
   if ($healthA <= 0) return array(0 => 100);
