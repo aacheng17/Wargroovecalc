@@ -113,49 +113,57 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
 ?>
 
 <form id="calc-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-  <select name="unitA" id="unitA" form="calc-form"><?php
-    $i = 0;
-    foreach($unitNames as $unitName) {
-      if (in_array($i, $unitsA)) {
-        echo "<option value=" . $i . ($i == $unitA ? " selected" : "") .  ">" . $unitName . "</option>";
+  <div id="div-attack">
+    <select name="unitA" id="unitA" form="calc-form"><?php
+      $i = 0;
+      foreach($unitNames as $unitName) {
+        if (in_array($i, $unitsA)) {
+          echo "<option value=" . $i . ($i == $unitA ? " selected" : "") .  ">" . $unitName . "</option>";
+        }
+        $i++;
       }
-      $i++;
-    }
-  ?></select>
-  <?php echo '<input type="number" id="healthA" name="healthA" min="1" max="100" value="' . $healthA . '">' ?>
-  <select name="terrainA" id="terrainA" form="calc-form"><?php
-    $i = 0;
-    foreach($terrainNames as $terrainName) {
-      echo "<option value=" . $i . ($i == $terrainA ? " selected" : "") .  ">" . $terrainName . "</option>";
-      $i++;
-    }
-  ?></select>
-  <label><?php echo '<input type="checkbox" id="critA" name="critA"' . ($critA ? " checked" : "") . '>' ?>Crit</label>
-  --attacking-->
-  <select name="unitD" id="unitD" form="calc-form"><?php
-    $i = 0;
-    foreach($unitNames as $unitName) {
-      echo "<option value=" . $i . ($i == $unitD ? " selected" : "") .   ">" . $unitName . "</option>";
-      $i++;
-    }
-  ?></select>
-  <?php echo '<input type="number" id="healthD" name="healthD" min="1" max="100" value="' . $healthD . '">' ?>
-  <select name="terrainD" id="terrainD" form="calc-form"><?php
-    $i = 0;
-    foreach($terrainNames as $terrainName) {
-      echo "<option value=" . $i . ($i == $terrainD ? " selected" : "") .  ">" . $terrainName . "</option>";
-      $i++;
-    }
-  ?></select>
-  <label><?php echo '<input type="checkbox" id="critD" name="critD"' . ($critD ? " checked" : "") . '>' ?>Crit</label>
+    ?></select>
+    <?php echo '<input type="number" id="healthA" name="healthA" min="1" max="100" value="' . $healthA . '">' ?>
+    <select name="terrainA" id="terrainA" form="calc-form"><?php
+      $i = 0;
+      foreach($terrainNames as $terrainName) {
+        echo "<option value=" . $i . ($i == $terrainA ? " selected" : "") .  ">" . $terrainName . "</option>";
+        $i++;
+      }
+    ?></select>
+    <label><?php echo '<input type="checkbox" id="critA" name="critA"' . ($critA ? " checked" : "") . '>' ?>Crit</label>
+  </div>
+
+  <div id="div-defend">
+    <select name="unitD" id="unitD" form="calc-form"><?php
+      $i = 0;
+      foreach($unitNames as $unitName) {
+        echo "<option value=" . $i . ($i == $unitD ? " selected" : "") .   ">" . $unitName . "</option>";
+        $i++;
+      }
+    ?></select>
+    <?php echo '<input type="number" id="healthD" name="healthD" min="1" max="100" value="' . $healthD . '">' ?>
+    <select name="terrainD" id="terrainD" form="calc-form"><?php
+      $i = 0;
+      foreach($terrainNames as $terrainName) {
+        echo "<option value=" . $i . ($i == $terrainD ? " selected" : "") .  ">" . $terrainName . "</option>";
+        $i++;
+      }
+    ?></select>
+    <label><?php echo '<input type="checkbox" id="critD" name="critD"' . ($critD ? " checked" : "") . '>' ?>Crit</label>
+  </div>
   
-  <input type="submit" name="submit" value="Calc">
+  <div id="div-submit">
+    <input type="submit" name="submit" value="Calc">
+  </div>
 </form>
 
-<?php
-echo "<h2>Result:</h2>";
-echo calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD);
-?>
+<div id="div-result">
+  <?php
+  echo "<h2>Result:</h2>";
+  echo calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD);
+  ?>
+</div>
 
 </body>
 </html>
