@@ -34,6 +34,12 @@ function checkCrit(unitA, healthA, terrainA, critA, terrainD) {
     case "6":
         critA.checked = healthA.value <= 40;
         break;
+    case "9":
+        critA.checked = spaces.value == 2;
+        break;
+    case "10":
+        critA.checked = spaces.value == 5 || (spaces.value == 6 && weather.value == 2);
+        break;
     case "14":
         critA.checked = terrainA.value === 4;
         break;
