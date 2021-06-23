@@ -117,6 +117,9 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
   if ($healthA <= 0) return array(0 => 100);
   global $damageMatrix, $unitCrits, $terrainDefenses;
   $cPower = $damageMatrix[$unitA][$unitD];
+  if ($unitA == 6 && $healthA <= 40) {
+    $critA = TRUE;
+  }
   $cCrit = $critA ? $unitCrits[$unitA] : 1;
   $cWeather = 1;
   if ($unitA >= 14 && $unitA <= 16 && $weather != 0) {
