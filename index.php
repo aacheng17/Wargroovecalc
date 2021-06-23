@@ -130,8 +130,10 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
   $maxAttack = ($cx + 5) * $cz;
   foreach(range(round($minAttack), round($maxAttack) - 1) as $attack) {
     echo $attack;
+    echo '<br/>';
     $rand = ($attack + 0.5) / $cz - $cx;
     echo $rand;
+    echo '<br/>';
   }
 }
 ?>
