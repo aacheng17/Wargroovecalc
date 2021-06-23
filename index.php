@@ -46,7 +46,7 @@ $damageMatrix = array(
 $unitA = $healthA = $terrainA = $unitD = $healthD = $terrainD = $weather = 0;
 $healthA = $healthD = 100;
 $critA = $critD = False;
-$spaces = 1;
+$spaces = 0;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $buf = sanitizeInput($_POST["unitA"]);
@@ -90,8 +90,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $weather = $buf;
   }
 
-  $buf = sanitizeInput($_POST["weather"]);
-  if (isValidIntInRange(1, 10, $buf)) {
+  $buf = sanitizeInput($_POST["spaces"]);
+  if (isValidIntInRange(0, 10, $buf)) {
     $spaces = $buf;
   }
 }
@@ -169,6 +169,8 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
   </div>
 
   <div id="div-conditions" class="main-div">
+    Spaces apart: (put 0 for always in range)
+    <?php echo '<input type="number" id="spaces" name="spaces" min="1" max="10" value="' . $spaces . '">' ?>
     <select name="weather" id="weather" form="calc-form"><?php
       $i = 0;
       foreach($weathers as $weatherName) {
@@ -176,7 +178,6 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
         $i++;
       }
     ?></select>
-    <?php echo '<input type="number" id="spaces" name="spaces" min="1" max="10" value="' . $spaces . '">' ?>
   </div>
   
   <div id="div-submit" class="main-div">
