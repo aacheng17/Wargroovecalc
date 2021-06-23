@@ -117,11 +117,14 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
   global $damageMatrix, $unitCrits, $terrainDefenses;
   $cPower = $damageMatrix[$unitA][$unitD];
   $cCrit = $critA ? $unitCrits[$unitA] : 1;
-  $cWeather = 
+  $cWeather = 1;
+  if ($unitA >= 14 && $unitA <= 16 && $weather != 0) {
+    $cWeather = $weather == 1 ? 0.8 : 1.2;
+  }
   $cAtkHealth = $healthA / 100;
   $cDefense = $terrainDefenses[$terrainD];
   $cDefHealth = ($cDefense >= 0 ? $healthD : 1) / 100;
-  return ($cPower * $cCrit) * $cAtkHealth * (1 - ($cDefHealth * $cDefense / 10));
+  return ($cPower * $cCrit * $cWeather) * $cAtkHealth * (1 - ($cDefHealth * $cDefense / 10));
 }
 ?>
 
@@ -171,6 +174,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
   <div id="div-conditions" class="main-div">
     Spaces apart: (put 0 for always in range)
     <?php echo '<input type="number" id="spaces" name="spaces" min="1" max="10" value="' . $spaces . '">' ?>
+    <br/>
     <select name="weather" id="weather" form="calc-form"><?php
       $i = 0;
       foreach($weathers as $weatherName) {

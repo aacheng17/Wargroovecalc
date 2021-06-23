@@ -10,6 +10,8 @@ var unitD = document.getElementById("unitD");
 var healthD = document.getElementById("healthD");
 var terrainD = document.getElementById("terrainD");
 var critD = document.getElementById("critD");
+var spaces = document.getElementById("spaces");
+var weather = document.getElementById("weather");
 
 function setCheckboxReadonly(checkbox, readonly) {
     if (readonly) {
