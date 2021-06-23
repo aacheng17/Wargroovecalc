@@ -145,7 +145,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
     }
   }
 
-  $ret = array()
+  $ret = array();
   foreach(range(0, count($possibleAttacks)) as $i) {
     $ret[$possibleAttacks[i]] = $probs[i];
   }
