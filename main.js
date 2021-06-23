@@ -35,9 +35,17 @@ function checkCrit(unitA, healthA, terrainA, critA, terrainD) {
         critA.checked = healthA.value <= 40;
         break;
     case "9":
+        if (spaces.value == 0) {
+            setCheckboxReadonly(critA, false);
+            break;
+        }
         critA.checked = spaces.value == 2;
         break;
     case "10":
+        if (spaces.value == 0) {
+            setCheckboxReadonly(critA, false);
+            break;
+        }
         critA.checked = spaces.value == 5 || (spaces.value == 6 && weather.value == 2);
         break;
     case "14":
