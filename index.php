@@ -145,15 +145,12 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
     }
   }
 
-  $ret = array();
+  $ret = array()
   foreach(range(0, count($possibleAttacks)) as $i) {
-    array_push($ret, $possibleAttacks[i] => $probs[i]);
+    $ret[$possibleAttacks[i]] = $probs[i];
   }
-  
-  echo 'Attack damage possibilities:<br/>';
-  foreach(range(0, count($possibleAttacks)-1) as $i) {
-    echo $possibleAttacks[$i] . '(' . $probs[$i] . ') ';
-  }
+
+  return ret;
 }
 ?>
 
@@ -221,7 +218,11 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
 <div id="div-result" class="main-div">
   <?php
   echo '<h2>Result:</h2>';
-  echo calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces);
+  echo 'Attack damage possibilities:<br/>';
+  $calcResults = calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces);
+  foreach($calcResults as $damage => $prob) {
+    echo $damage . '(' . $prob . ') ';
+  }
   ?>
 </div>
 
