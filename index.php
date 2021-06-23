@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $buf = sanitizeInput($_POST["weather"]);
   if (isValidIntInRange(1, 10, $buf)) {
-    $spaces = $buf
+    $spaces = $buf;
   }
 }
 
