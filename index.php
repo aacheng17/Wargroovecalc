@@ -129,12 +129,14 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
   $minAttack = ($cx - 5) * $cz;
   $maxAttack = ($cx + 5) * $cz;
   $possibleAttacks = range(round($minAttack), round($maxAttack));
+
   $rands = array(-5);
   foreach(range(round($minAttack), round($maxAttack) - 1) as $attack) {
     $rand = ($attack + 0.5) / $cz - $cx;
     array_push($rands, $rand);
   }
   array_push($rands, 5);
+
   $probs = array();
   foreach(range(0, count($rands)-2) as $i) {
     $prob = ($rands[$i+1] - $rands[$i]) * 10;
@@ -142,6 +144,12 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
       array_push($probs, $prob);
     }
   }
+
+  $ret = array();
+  foreach(range(0, count($possibleAttacks)) as $i) {
+    array_push($ret, $possibleAttacks[i] => probs[i]);
+  }
+  
   echo 'Attack damage possibilities:<br/>';
   foreach(range(0, count($possibleAttacks)-1) as $i) {
     echo $possibleAttacks[$i] . '(' . $probs[$i] . ') ';
