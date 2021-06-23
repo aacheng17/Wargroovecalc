@@ -138,7 +138,10 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
   $probs = array();
   foreach(range(0, count($rands)-2) as $i) {
     $prob = $rands[$i+1] - $rands[$i] * 10;
-    if ($prob > 0) array_push($probs, $prob);
+    if ($prob > 0) {
+      echo $prob;
+      array_push($probs, $prob);
+    }
   }
   foreach($rands as $rand) {
     echo $rand . '<br/>';
