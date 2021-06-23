@@ -287,6 +287,7 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
     foreach($calcResults as $damage => $prob) {
       echo $damage . '(' . round($prob, 1) . ') ';
     }
+    echo '<br/><br/>';
     foreach($calcResults as $damage => $prob) {
       $caResults = calcCounterattack($unitD, $healthD, $terrainD, $critD, $unitA, $healthA, $terrainA, $critA, $spaces, $weather, $calcResults);
     }
@@ -294,7 +295,7 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
     if ($attackErr != 0) {
       echo $attackErr;
     } else {
-      echo '<br/><br/>Counterattack damage possibilities:<br/>';
+      echo 'Counterattack damage possibilities:<br/>';
       foreach($caResults as $damage => $prob) {
         echo $damage . '('. $prob . ') ';
       }
