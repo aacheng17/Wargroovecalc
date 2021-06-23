@@ -140,9 +140,22 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
     $prob = $rands[$i+1] - $rands[$i] * 10;
     if ($prob > 0) array_push($probs, $prob);
   }
+  foreach($rands as $rand) {
+    echo $rand . '<br/>';
+  }
+  echo '<br/>';
+  foreach($possibleAttacks as $pa) {
+    echo $pa . '<br/>';
+  }
+  echo '<br/>';
+  foreach($probs as $prob) {
+    echo $prob . '<br/>';
+  }
+  /*
   foreach(range(0, count($possibleAttacks)) as $i) {
     echo $possibleAttacks[$i] . '  ' . $probs[$i] . '<br/>';
   }
+  */
 }
 ?>
 
