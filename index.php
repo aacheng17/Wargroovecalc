@@ -157,7 +157,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
 function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces, $attackResults) {
   $ret = array();
   foreach($attackResults as $damage => $prob) {
-    $calcResult = calc($unitA - $damage, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces, $damage);
+    $calcResult = calc($unitA, $healthA - $damage, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces, $damage);
     foreach($calcResult as $caDamage => $caProb) {
       if (array_key_exists($caDamage, $ret)) {
         $ret[$caDamage] += $caProb;
@@ -168,7 +168,7 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
   }
   $totalProbs = 0;
   foreach($ret as $damage => $prob) {
-    $totalProbls += $prob;
+    $totalProbs += $prob;
   }
   foreach($ret as $damage => $prob) {
     $ret[$damage] = round($prob / $totalProbs * 100, 2);
