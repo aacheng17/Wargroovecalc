@@ -77,6 +77,8 @@ terrainA.onchange = function() { checkCritA(); checkCritD(); };
 unitD.onchange = function() { checkCritD(); };
 healthD.onchange = function() { checkCritD(); };
 terrainD.onchange = function() { checkCritA(); checkCritD(); };
+spaces.onchange = function() { checkCritA(); checkCritD(); };
+weather.onchange = function() { checkCritA(); checkCritD(); };
 
 checkCritA();
 checkCritD();
