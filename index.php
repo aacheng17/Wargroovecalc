@@ -143,7 +143,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
     }
   }
   echo 'Attack damage possibilities:<br/>';
-  foreach(range(0, count($possibleAttacks)) as $i) {
+  foreach(range(0, count($possibleAttacks)-1) as $i) {
     echo $possibleAttacks[$i] . '(' . $probs[$i] . ') ';
   }
 }
