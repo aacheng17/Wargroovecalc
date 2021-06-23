@@ -251,7 +251,7 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
 
   <div id="div-conditions" class="main-div">
     Spaces apart: (put 0 for always in range)
-    <?php echo '<input type="number" id="spaces" name="spaces" min="1" max="10" value="' . $spaces . '">' ?>
+    <?php echo '<input type="number" id="spaces" name="spaces" min="0" max="10" value="' . $spaces . '">' ?>
     <br/>
     <select name="weather" id="weather" form="calc-form"><?php
       $i = 0;
