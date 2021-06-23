@@ -134,7 +134,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
     <label><?php echo '<input type="checkbox" id="critA" name="critA"' . ($critA ? " checked" : "") . '>' ?>Crit</label>
   </div>
 
-  <img src="icon-attack.png" alt="Attack" width="50px" height="50px">
+  <img src="icon-attack.png" alt="Attack" width="75px" height="75px">
 
   <div id="div-defend" class="main-div">
     <select name="unitD" id="unitD" form="calc-form"><?php
