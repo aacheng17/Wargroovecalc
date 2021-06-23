@@ -143,23 +143,10 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
       array_push($probs, $prob);
     }
   }
-  echo '<br/>';
-  foreach($rands as $rand) {
-    echo $rand . '<br/>';
-  }
-  echo '<br/>';
-  foreach($possibleAttacks as $pa) {
-    echo $pa . '<br/>';
-  }
-  echo '<br/>';
-  foreach($probs as $prob) {
-    echo $prob . '<br/>';
-  }
-  /*
+  echo 'Attack damage possibilities:<br/>';
   foreach(range(0, count($possibleAttacks)) as $i) {
-    echo $possibleAttacks[$i] . '  ' . $probs[$i] . '<br/>';
+    echo $possibleAttacks[$i] . ' (' . $probs[$i] . ') ';
   }
-  */
 }
 ?>
 
