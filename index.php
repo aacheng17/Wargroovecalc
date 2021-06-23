@@ -14,6 +14,7 @@ $unitNames = array("(0) villager", "(1) soldier", "(2) spearman", "(3) dog", "(4
 $unitCrits = array(1.5, 1.5, 1.5, 1.5, 1.35, 1.5, 1.5, 1.5, 2.5, 1.5, 1.25, 2, 2, 2, 1.5, 1.5, 1.5, 1, 1);
 $terrainNames = array("road (0)", "bridge (0)", "plains (1)", "forest (3)", "mountain (4)", "beach (-1)", "sea (1)", "deep sea (0)", "river (-2)", "reef (2)", "flagstone (2)", "carpet (2)");
 $terrainDefenses = array(0, 0, 1, 3, 4, -1, 1, 0, -2, 2, 2, 2);
+$weathers = array("sun", "rain", "wind");
 $damageMatrix = array(
   /*0villager*/array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
   /*1solder*/array(60, 60, 40, 50, 60, 70, 10, 20, 40, 40, 35, 100, 75, 0, 0, 0, 0, 0, 0, 0, 0, 60, 15, 40, 22),
@@ -42,9 +43,10 @@ $damageMatrix = array(
   /*24stronghold*/array(0, 35, 35, 40, 40, 35, 10, 15, 0, 0, 0, 0, 45, 0, 35, 10, 0, 0, 0, 0, 0, 35, 10, 0, 0)
 );
 
-$unitA = $healthA = $terrainA = $unitD = $healthD = $terrainD = 0;
+$unitA = $healthA = $terrainA = $unitD = $healthD = $terrainD = $weather = 0;
 $healthA = $healthD = 100;
 $critA = $critD = False;
+$spaces = 1;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $buf = sanitizeInput($_POST["unitA"]);
@@ -82,6 +84,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $buf = sanitizeInput($_POST["critD"]);
   $critD = !empty($buf);
+
+  $buf = sanitizeInput($_POST["weather"]);
+  if (isValidIntInRange(0, 2, $buf)) {
+    $weather = $buf;
+  }
+
+  $buf = sanitizeInput($_POST["weather"]);
+  if (isValidIntInRange(1, 10, $buf)) {
+    $spaces = $buf
+  }
 }
 
 function sanitizeInput($data) {
@@ -101,10 +113,11 @@ function isValidIntInRange($min, $max, $data) {
   return FALSE;
 }
 
-function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD) {
+function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces) {
   global $damageMatrix, $unitCrits, $terrainDefenses;
   $cPower = $damageMatrix[$unitA][$unitD];
   $cCrit = $critA ? $unitCrits[$unitA] : 1;
+  $cWeather = 
   $cAtkHealth = $healthA / 100;
   $cDefense = $terrainDefenses[$terrainD];
   $cDefHealth = ($cDefense >= 0 ? $healthD : 1) / 100;
@@ -154,6 +167,17 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
     ?></select>
     <label><?php echo '<input type="checkbox" id="critD" name="critD"' . ($critD ? " checked" : "") . '>' ?>Crit</label>
   </div>
+
+  <div id="div-conditions" class="main-div">
+    <select name="weather" id="weather" form="calc-form"><?php
+      $i = 0;
+      foreach($weathers as $weatherName) {
+        echo "<option value=" . $i . ($i == $weather ? " selected" : "") .  ">" . $weatherName . "</option>";
+        $i++;
+      }
+    ?></select>
+    <?php echo '<input type="number" id="spaces" name="spaces" min="1" max="10" value="' . $spaces . '">' ?>
+  </div>
   
   <div id="div-submit" class="main-div">
     <input id="button-calc" type="submit" name="submit" value="Calc">
@@ -163,7 +187,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
 <div id="div-result" class="main-div">
   <?php
   echo "<h2>Result:</h2>";
-  echo calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD);
+  echo calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces);
   ?>
 </div>
 
