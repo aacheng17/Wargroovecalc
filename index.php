@@ -127,7 +127,7 @@ function attackError($unitA, $unitD, $spaces, $weather) {
   }
   if ($spaces < $unitRangesMin[$unitA] || $spaces > $unitRangesMax[$unitA] + $rangeMod) {
     return 0;
-  )
+  }
   return -2;
 }
 
