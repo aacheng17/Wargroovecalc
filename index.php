@@ -49,6 +49,7 @@ $unitA = $healthA = $terrainA = $unitD = $healthD = $terrainD = $weather = 0;
 $healthA = $healthD = 100;
 $critA = $critD = False;
 $spaces = 0;
+$calcResults = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $buf = sanitizeInput($_POST['unitA']);
@@ -277,26 +278,28 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
       return 'The defending unit is out of range';
     }
   }
-  echo '<h2>Result:</h2>';
-  echo 'Attack damage possibilities:<br/>';
-  $calcResults = calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $spaces, $weather);
-  $attackErr = handleAttackError($calcResults);
-  if ($attackErr != 0) {
-    echo $attackErr;
-  } else {
-    foreach($calcResults as $damage => $prob) {
-      echo $damage . '(' . round($prob, 1) . ') ';
-    }
-    echo '<br/><br/>Counterattack damage possibilities:<br/>';
-    foreach($calcResults as $damage => $prob) {
-      $caResults = calcCounterattack($unitD, $healthD, $terrainD, $critD, $unitA, $healthA, $terrainA, $critA, $spaces, $weather, $calcResults);
-    }
-    $attackErr = handleAttackError($caResults);
+  if ($calcResults != null) {
+    echo '<h2>Result:</h2>';
+    echo 'Attack damage possibilities:<br/>';
+    $calcResults = calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $spaces, $weather);
+    $attackErr = handleAttackError($calcResults);
     if ($attackErr != 0) {
       echo $attackErr;
     } else {
-      foreach($caResults as $damage => $prob) {
-        echo $damage . '('. $prob . ') ';
+      foreach($calcResults as $damage => $prob) {
+        echo $damage . '(' . round($prob, 1) . ') ';
+      }
+      echo '<br/><br/>Counterattack damage possibilities:<br/>';
+      foreach($calcResults as $damage => $prob) {
+        $caResults = calcCounterattack($unitD, $healthD, $terrainD, $critD, $unitA, $healthA, $terrainA, $critA, $spaces, $weather, $calcResults);
+      }
+      $attackErr = handleAttackError($caResults);
+      if ($attackErr != 0) {
+        echo $attackErr;
+      } else {
+        foreach($caResults as $damage => $prob) {
+          echo $damage . '('. $prob . ') ';
+        }
       }
     }
   }
