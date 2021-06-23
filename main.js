@@ -1,5 +1,3 @@
-var unitRangesMin = [0, 1, 1, 1, 1, 1, 1, 1, 0, 2, 2, 0, 1, 0, 1, 1, 1, 0, 1, 3, 2, 1, 1, 1, 1];
-var unitRangesMax = [0, 1, 1, 1, 1, 3, 1, 1, 0, 6, 5, 0, 9, 0, 1, 1, 1, 0, 1, 6, 4, 2, 1, 1, 1];
 var terrainDefenses = [0, 0, 1, 3, 4, -1, 1, 0, -2, 2, 2, 2];
 
 var unitA = document.getElementById("unitA");

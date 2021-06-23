@@ -12,6 +12,8 @@
 $unitsA = array(1, 2, 3, 4, 5, 6, 7, 9, 10, 12, 14, 15, 16, 18, 19, 20, 21, 22);
 $unitNames = array("(0) villager", "(1) soldier", "(2) spearman", "(3) dog", "(4) mage", "(5) archer", "(6) giant", "(7) cavalry", "(8) wagon", "(9) ballista", "(10) trebuchet", "(11) thief", "(12) rifleman", "(13) balloon", "(14) aeronaut", "(15) sky rider", "(16) dragon", "(17) barge", "(18) turtle", "(19) harpoon ship", "(20) warship", "(21) amphibian", "(22) commander", "(23) structure", "(24) stronghold");
 $unitCrits = array(1.5, 1.5, 1.5, 1.5, 1.35, 1.5, 1.5, 1.5, 2.5, 1.5, 1.25, 2, 2, 2, 1.5, 1.5, 1.5, 1, 1);
+$unitRangesMin = [0, 1, 1, 1, 1, 1, 1, 1, 0, 2, 2, 0, 1, 0, 1, 1, 1, 0, 1, 3, 2, 1, 1, 1, 1];
+$unitRangesMax = [0, 1, 1, 1, 1, 3, 1, 1, 0, 6, 5, 0, 9, 0, 1, 1, 1, 0, 1, 6, 4, 2, 1, 1, 1];
 $terrainNames = array("road (0)", "bridge (0)", "plains (1)", "forest (3)", "mountain (4)", "beach (-1)", "sea (1)", "deep sea (0)", "river (-2)", "reef (2)", "flagstone (2)", "carpet (2)");
 $terrainDefenses = array(0, 0, 1, 3, 4, -1, 1, 0, -2, 2, 2, 2);
 $weathers = array("sun", "rain", "wind");
@@ -113,7 +115,27 @@ function isValidIntInRange($min, $max, $data) {
   return FALSE;
 }
 
-function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces) {
+function attackError($unitA, $unitD, $spaces, $weather) {
+  global $unitRangesMin, $unitRangesMax, $damageMatrix;
+  if ($damageMatrix[$unitA][$unitD] == 0) {
+    return -1;
+  }
+  if ($spaces == 0) return 0;
+  $rangeMod = 0;
+  if (in_array($unitA, [5, 9, 10, 12]) && $weather != 0) {
+    $rangeMod = $weather == 1 ? -1 : 1;
+  }
+  if ($spaces < $unitRangesMin[$unitA] || $spaces > $unitRangesMax[$unitA] + $rangeMod) {
+    return 0;
+  )
+  return -2;
+}
+
+function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $spaces, $weather) {
+  $attackErr = attackError($unitA, $unitD, $spaces, $weather;
+  if (attackErr) != 0) {
+    return array(attackErr => 100);
+  }
   if ($healthA <= 0) return array(0 => 100);
   global $damageMatrix, $unitCrits, $terrainDefenses;
   $cPower = $damageMatrix[$unitA][$unitD];
@@ -156,6 +178,11 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
 }
 
 function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces, $attackResults) {
+  $attackErr = attackError($unitA, $unitD, $spaces, $weather;
+  if (attackErr) != 0) {
+    return array(attackErr => 100);
+  }
+  if ($healthA <= 0) return array(0 => 100);
   $ret = array();
   foreach($attackResults as $damage => $prob) {
     $calcResult = calc($unitA, $healthA - $damage, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces, $damage);
@@ -242,18 +269,36 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
 
 <div id="div-result" class="main-div">
   <?php
+  function handleAttackError($calcResults) {
+    if (array_key_exists(-1, $calcResults)) {
+      return 'This unit cannot target that unit';
+    }
+    if (array_key_exists(-2, $calcResults)) {
+      return 'The defending unit is out of range';
+    }
+  }
   echo '<h2>Result:</h2>';
   echo 'Attack damage possibilities:<br/>';
-  $calcResults = calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces);
-  foreach($calcResults as $damage => $prob) {
-    $caResults = calcCounterattack($unitD, $healthD, $terrainD, $critD, $unitA, $healthA, $terrainA, $critA, $weather, $spaces, $calcResults);
-  }
-  foreach($calcResults as $damage => $prob) {
-    echo $damage . '(' . round($prob, 1) . ') ';
-  }
-  echo '<br/><br/>Counterattack damage possibilities:<br/>';
-  foreach($caResults as $damage => $prob) {
-    echo $damage . '('. $prob . ') ';
+  $calcResults = calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $spaces, $weather);
+  $attackErr = handleAttackError($calcResults);
+  if ($attackErr != 0) {
+    echo $attackErr;
+  } else {
+    foreach($calcResults as $damage => $prob) {
+      $caResults = calcCounterattack($unitD, $healthD, $terrainD, $critD, $unitA, $healthA, $terrainA, $critA, $spaces, $weather, $calcResults);
+    }
+    $attackErr = handleAttackError($caResults);
+    if ($attackErr != 0) {
+      echo $attackErr;
+    } else {
+      foreach($calcResults as $damage => $prob) {
+        echo $damage . '(' . round($prob, 1) . ') ';
+      }
+      echo '<br/><br/>Counterattack damage possibilities:<br/>';
+      foreach($caResults as $damage => $prob) {
+        echo $damage . '('. $prob . ') ';
+      }
+    }
   }
   ?>
 </div>
