@@ -127,8 +127,8 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
   $cDefHealth = ($cDefense >= 0 ? $healthD : 1) / 100;
   $cx = $cPower * $cCrit * $cWeather;
   $cz = $cAtkHealth * (1 - ($cDefHealth * $cDefense / 10));
-  $minAttack = ($cx - 5) * $cz;
-  $maxAttack = ($cx + 5) * $cz;
+  $minAttack = max(0, ($cx - 5) * $cz);
+  $maxAttack = min($healthD, ($cx + 5) * $cz);
   $possibleAttacks = range(round($minAttack), round($maxAttack));
 
   $rands = array(-5);
@@ -173,6 +173,7 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
   foreach($ret as $damage => $prob) {
     $ret[$damage] = round($prob / $totalProbs * 100, 2);
   }
+  ksort($ret);
   return $ret;
 }
 ?>
@@ -241,7 +242,7 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
 <div id="div-result" class="main-div">
   <?php
   echo '<h2>Result:</h2>';
-  echo 'Attack damage possibilities:<br/>';
+  echo 'Attack damage possibilities:<br/><br/>';
   $calcResults = calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces);
   foreach($calcResults as $damage => $prob) {
     $caResults = calcCounterattack($unitD, $healthD, $terrainD, $critD, $unitA, $healthA, $terrainA, $critA, $weather, $spaces, $calcResults);
