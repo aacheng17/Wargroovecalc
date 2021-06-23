@@ -143,6 +143,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
       array_push($probs, $prob);
     }
   }
+  echo '<br/>';
   foreach($rands as $rand) {
     echo $rand . '<br/>';
   }
