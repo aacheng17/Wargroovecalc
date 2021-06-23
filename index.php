@@ -147,7 +147,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
 
   $ret = array();
   foreach(range(0, count($possibleAttacks)) as $i) {
-    array_push($ret, $possibleAttacks[i] => probs[i]);
+    array_push($ret, $possibleAttacks[i] => $probs[i]);
   }
   
   echo 'Attack damage possibilities:<br/>';
