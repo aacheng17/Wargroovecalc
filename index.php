@@ -113,7 +113,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
 ?>
 
 <form id="calc-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-  <div id="div-attack">
+  <div id="div-attack" class="main-div">
     <select name="unitA" id="unitA" form="calc-form"><?php
       $i = 0;
       foreach($unitNames as $unitName) {
@@ -134,7 +134,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
     <label><?php echo '<input type="checkbox" id="critA" name="critA"' . ($critA ? " checked" : "") . '>' ?>Crit</label>
   </div>
 
-  <div id="div-defend">
+  <div id="div-defend" class="main-div">
     <select name="unitD" id="unitD" form="calc-form"><?php
       $i = 0;
       foreach($unitNames as $unitName) {
@@ -153,12 +153,12 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
     <label><?php echo '<input type="checkbox" id="critD" name="critD"' . ($critD ? " checked" : "") . '>' ?>Crit</label>
   </div>
   
-  <div id="div-submit">
-    <input type="submit" name="submit" value="Calc">
+  <div id="div-submit" class="main-div">
+    <input id="button-calc" type="submit" name="submit" value="Calc">
   </div>
 </form>
 
-<div id="div-result">
+<div id="div-result" class="main-div">
   <?php
   echo "<h2>Result:</h2>";
   echo calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD);
