@@ -48,49 +48,49 @@ $healthA = $healthD = 100;
 $critA = $critD = False;
 $spaces = 0;
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $buf = sanitizeInput($_POST["unitA"]);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $buf = sanitizeInput($_POST['unitA']);
   if (isValidIntInRange(0, count($unitNames)-1, $buf)) {
     $unitA = $buf;
   }
 
-  $buf = sanitizeInput($_POST["healthA"]);
+  $buf = sanitizeInput($_POST['healthA']);
   if (isValidIntInRange(1, 100, $buf)) {
     $healthA = $buf;
   }
 
-  $buf = sanitizeInput($_POST["terrainA"]);
+  $buf = sanitizeInput($_POST['terrainA']);
   if (isValidIntInRange(0, count($terrainNames)-1, $buf)) {
     $terrainA = $buf;
   }
 
-  $buf = sanitizeInput($_POST["critA"]);
+  $buf = sanitizeInput($_POST['critA']);
   $critA = !empty($buf);
 
-  $buf = sanitizeInput($_POST["unitD"]);
+  $buf = sanitizeInput($_POST['unitD']);
   if (isValidIntInRange(0, count($unitNames)-1, $buf)) {
     $unitD = $buf;
   }
 
-  $buf = sanitizeInput($_POST["healthD"]);
+  $buf = sanitizeInput($_POST['healthD']);
   if (isValidIntInRange(1, 100, $buf)) {
     $healthD = $buf;
   }
 
-  $buf = sanitizeInput($_POST["terrainD"]);
+  $buf = sanitizeInput($_POST['terrainD']);
   if (isValidIntInRange(0, count($terrainNames)-1, $buf)) {
     $terrainD = $buf;
   }
 
-  $buf = sanitizeInput($_POST["critD"]);
+  $buf = sanitizeInput($_POST['critD']);
   $critD = !empty($buf);
 
-  $buf = sanitizeInput($_POST["weather"]);
+  $buf = sanitizeInput($_POST['weather']);
   if (isValidIntInRange(0, 2, $buf)) {
     $weather = $buf;
   }
 
-  $buf = sanitizeInput($_POST["spaces"]);
+  $buf = sanitizeInput($_POST['spaces']);
   if (isValidIntInRange(0, 10, $buf)) {
     $spaces = $buf;
   }
@@ -128,13 +128,13 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
 }
 ?>
 
-<form id="calc-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<form id="calc-form" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
   <div id="div-attack" class="main-div">
     <select name="unitA" id="unitA" form="calc-form"><?php
       $i = 0;
       foreach($unitNames as $unitName) {
         if (in_array($i, $unitsA)) {
-          echo "<option value=" . $i . ($i == $unitA ? " selected" : "") .  ">" . $unitName . "</option>";
+          echo '<option value=' . $i . ($i == $unitA ? ' selected' : '') .  '>' . $unitName . '</option>';
         }
         $i++;
       }
