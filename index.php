@@ -125,6 +125,7 @@ function attackError($unitA, $unitD, $spaces, $weather) {
   if (in_array($unitA, [5, 9, 10, 12]) && $weather != 0) {
     $rangeMod = $weather == 1 ? -1 : 1;
   }
+  echo 'asdf' . $spaces . 'asdf';
   if ($spaces < $unitRangesMin[$unitA] || $spaces > $unitRangesMax[$unitA] + $rangeMod) {
     return -2;
   }
