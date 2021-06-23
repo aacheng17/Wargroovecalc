@@ -124,7 +124,15 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
   $cAtkHealth = $healthA / 100;
   $cDefense = $terrainDefenses[$terrainD];
   $cDefHealth = ($cDefense >= 0 ? $healthD : 1) / 100;
-  return ($cPower * $cCrit * $cWeather) * $cAtkHealth * (1 - ($cDefHealth * $cDefense / 10));
+  $cx = $cPower * $cCrit * $cWeather;
+  $cz = $cAtkHealth * (1 - ($cDefHealth * $cDefense / 10));
+  $minAttack = ($cx - 5) * $cz;
+  $maxAttack = ($cx + 5) * $cz;
+  foreach(range(round($minAttack), round($maxAttack) - 1) as $attack) {
+    echo $attack;
+    $rand = ($attack + 0.5) / $cz - $cx;
+    echo $rand;
+  }
 }
 ?>
 
