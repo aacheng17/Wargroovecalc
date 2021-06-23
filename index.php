@@ -114,6 +114,7 @@ function isValidIntInRange($min, $max, $data) {
 }
 
 function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces) {
+  if ($healthA <= 0) return array(0 => 100);
   global $damageMatrix, $unitCrits, $terrainDefenses;
   $cPower = $damageMatrix[$unitA][$unitD];
   $cCrit = $critA ? $unitCrits[$unitA] : 1;
@@ -146,10 +147,32 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
   }
 
   $ret = array();
-  foreach(range(0, count($possibleAttacks)) as $i) {
+  foreach(range(0, count($possibleAttacks)-1) as $i) {
     $ret[$possibleAttacks[$i]] = $probs[$i];
   }
 
+  return $ret;
+}
+
+function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces, $attackResults) {
+  $ret = array();
+  foreach($attackResults as $damage => $prob) {
+    $calcResult = calc($unitA - $damage, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces, $damage);
+    foreach($calcResult as $caDamage => $caProb) {
+      if (array_key_exists($caDamage, $ret)) {
+        $ret[$caDamage] += $caProb;
+      } else {
+        $ret[$caDamage] = $caProb;
+      }
+    }
+  }
+  $totalProbs = 0;
+  foreach($ret as $damage => $prob) {
+    $totalProbls += $prob;
+  }
+  foreach($ret as $damage => $prob) {
+    $ret[$damage] = round($prob / $totalProbs * 100, 2);
+  }
   return $ret;
 }
 ?>
@@ -221,7 +244,14 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
   echo 'Attack damage possibilities:<br/>';
   $calcResults = calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces);
   foreach($calcResults as $damage => $prob) {
+    $caResults = calcCounterattack($unitD, $healthD, $terrainD, $critD, $unitA, $healthA, $terrainA, $critA, $weather, $spaces, $calcResults);
+  }
+  foreach($calcResults as $damage => $prob) {
     echo $damage . '(' . $prob . ') ';
+  }
+  echo '<br/>Counterattack damage possibilities:<br/>';
+  foreach($caResults as $damage => $prob) {
+    echo $damage . '('. $prob . ') ';
   }
   ?>
 </div>
