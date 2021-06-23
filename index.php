@@ -150,7 +150,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
     $ret[$possibleAttacks[$i]] = $probs[$i];
   }
 
-  return ret;
+  return $ret;
 }
 ?>
 
