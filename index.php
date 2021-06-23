@@ -128,12 +128,20 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
   $cz = $cAtkHealth * (1 - ($cDefHealth * $cDefense / 10));
   $minAttack = ($cx - 5) * $cz;
   $maxAttack = ($cx + 5) * $cz;
+  $possibleAttacks = range(round($minAttack), round($maxAttack));
+  $rands = array(-5);
   foreach(range(round($minAttack), round($maxAttack) - 1) as $attack) {
-    echo $attack;
-    echo '<br/>';
     $rand = ($attack + 0.5) / $cz - $cx;
-    echo $rand;
-    echo '<br/>';
+    array_push($rands, $rand);
+  }
+  array_push($rands, 5);
+  $probs = array();
+  foreach(range(0, count($rands)-2) as $i) {
+    $prob = $rands[i+1] - $rands[i] * 10;
+    if ($prob > 0) array_push($probs, $prob);
+  }
+  foreach(range(0, count($possibleAttacks)) as $i) {
+    echo $possibleAttacks[i] . '  ' . $probs[i] . '<br/>';
   }
 }
 ?>
