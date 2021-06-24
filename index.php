@@ -150,6 +150,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
     $cWeather = $weather == 1 ? 0.8 : 1.2;
   }
   $cAtkHealth = $healthA / 100;
+  if ($unitA == 25) $cAtkHealth = 1;
   $cDefense = $unitD < 13 || $unitD > 16 || $unitD == 25 ? $terrainDefenses[$terrainD] : 1;
   $cDefHealth = ($cDefense >= 0 ? $healthD : 1) / 100;
   $cx = $cPower * $cCrit * $cWeather;
@@ -181,7 +182,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
 }
 
 function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces, $attackResults) {
-  if (in_array($unitA, array(9, 10, 25))) {
+  if (in_array($unitA, array(9, 10))) {
     return array(-3 => 100);
   }
   $attackErr = attackError($unitA, $unitD, $spaces, $weather);
@@ -191,6 +192,13 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
   if ($healthA <= 0) return array(0 => 100);
   $ret = array();
   foreach($attackResults as $damage => $prob) {
+    if ($unitA == 25 && $healthA - $damage >= 0) {
+      if (array_key_exists(0, $ret)) {
+        $ret[0] += 100;
+      } else {
+        $ret[0] = 100;
+      }
+    }
     $calcResult = calc($unitA, $healthA - $damage, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces, $damage);
     foreach($calcResult as $caDamage => $caProb) {
       if (array_key_exists($caDamage, $ret)) {
