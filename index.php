@@ -287,36 +287,38 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
 
 <div id="div-result" class="main-div">
   <?php
-  function handleAttackError($calcResults) {
-    if (array_key_exists(-1, $calcResults)) return 1;
-    if (array_key_exists(-2, $calcResults)) return 2;
-    if (array_key_exists(-3, $calcResults)) return 3;
-    return 0;
-  }
-  $attackErrors = array('No error', 'This unit cannot target that unit', 'The target is out of range', 'This unit cannot counterattack');
-  echo '<h2>Result:</h2>';
-  echo 'Attack damage possibilities:<br/>';
-  $calcResults = calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $spaces, $weather);
-  $err = handleAttackError($calcResults);
-  if ($err != 0 && $err != 3) {
-    echo $attackErrors[$err];
-  } else {
-    foreach($calcResults as $damage => $prob) {
-      echo $damage . '(' . round($prob, 1) . ') ';
-    }
-    echo '<br/><br/>Counterattack damage possibilities:<br/>';
-    foreach($calcResults as $damage => $prob) {
-      $caResults = calcCounterattack($unitD, $healthD, $terrainD, $critD, $unitA, $healthA, $terrainA, $critA, $spaces, $weather, $calcResults);
-    }
-    $err = handleAttackError($caResults);
-    if ($err != 0) {
-      echo $attackErrors[$err];
-    } else {
-      foreach($caResults as $damage => $prob) {
-        echo $damage . '('. $prob . ') ';
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      function handleAttackError($calcResults) {
+        if (array_key_exists(-1, $calcResults)) return 1;
+        if (array_key_exists(-2, $calcResults)) return 2;
+        if (array_key_exists(-3, $calcResults)) return 3;
+        return 0;
+      }
+      $attackErrors = array('No error', 'This unit cannot target that unit', 'The target is out of range', 'This unit cannot counterattack');
+      echo '<h2>Result:</h2>';
+      echo 'Attack damage possibilities:<br/>';
+      $calcResults = calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $spaces, $weather);
+      $err = handleAttackError($calcResults);
+      if ($err != 0 && $err != 3) {
+        echo $attackErrors[$err];
+      } else {
+        foreach($calcResults as $damage => $prob) {
+          echo $damage . '(' . round($prob, 1) . ') ';
+        }
+        echo '<br/><br/>Counterattack damage possibilities:<br/>';
+        foreach($calcResults as $damage => $prob) {
+          $caResults = calcCounterattack($unitD, $healthD, $terrainD, $critD, $unitA, $healthA, $terrainA, $critA, $spaces, $weather, $calcResults);
+        }
+        $err = handleAttackError($caResults);
+        if ($err != 0) {
+          echo $attackErrors[$err];
+        } else {
+          foreach($caResults as $damage => $prob) {
+            echo $damage . '('. $prob . ') ';
+          }
+        }
       }
     }
-  }
   ?>
 </div>
 
