@@ -149,7 +149,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
     $cWeather = $weather == 1 ? 0.8 : 1.2;
   }
   $cAtkHealth = $healthA / 100;
-  $cDefense = $terrainDefenses[$terrainD];
+  $cDefense = $unitD < 13 || $unitD > 16 ? $terrainDefenses[$terrainD] : 1;
   $cDefHealth = ($cDefense >= 0 ? $healthD : 1) / 100;
   $cx = $cPower * $cCrit * $cWeather;
   $cz = $cAtkHealth * (1 - ($cDefHealth * $cDefense / 10));
