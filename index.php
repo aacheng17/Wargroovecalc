@@ -192,7 +192,7 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
   if ($healthA <= 0) return array(0 => 100);
   $ret = array();
   foreach($attackResults as $damage => $prob) {
-    if ($unitA == 25 && $healthA - $damage >= 0) {
+    if ($unitA == 25 && $healthA - $damage > 0) {
       if (array_key_exists(0, $ret)) {
         $ret[0] += 100;
       } else {
