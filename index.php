@@ -131,14 +131,14 @@ function attackError($unitA, $unitD, $spaces, $weather) {
     return -2;
   }
   if (in_array($unitA, array(9, 10, 25))) {
-    return 1;
+    return -3;
   }
   return 0;
 }
 
 function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $spaces, $weather) {
   $attackErr = attackError($unitA, $unitD, $spaces, $weather);
-  if ($attackErr != 0) {
+  if ($attackErr != 0 && $attackErr != -3) {
     return array($attackErr => 100);
   }
   if ($healthA <= 0) return array(0 => 100);
