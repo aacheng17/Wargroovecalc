@@ -138,7 +138,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
   if ($attackErr != 0 && $attackErr != -3) {
     return array($attackErr => 100);
   }
-  if ($healthA <= 0) return array(0 => 100);
+  if ($healthA <= 0 && $unitA != 25) return array(0 => 100);
   global $damageMatrix, $unitCrits, $terrainDefenses;
   $cPower = $damageMatrix[$unitA][$unitD];
   if ($unitA == 6 && $healthA <= 40) {
@@ -193,14 +193,12 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
   $ret = array();
   foreach($attackResults as $damage => $prob) {
     if ($unitA == 25 && $healthA - $damage > 0) {
-      echo 'a';
       if (array_key_exists(0, $ret)) {
         $ret[0] += 100;
       } else {
         $ret[0] = 100;
       }
     } else {
-      echo 'b';
       $calcResult = calc($unitA, $healthA - $damage, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces, $damage);
       foreach($calcResult as $caDamage => $caProb) {
         if (array_key_exists($caDamage, $ret)) {
