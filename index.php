@@ -43,7 +43,7 @@ $damageMatrix = array(
   /*22commander*/array(100, 120, 80, 120, 85, 135, 45, 60, 75, 65, 60, 100, 110, 0, 0, 0, 0, 0, 0, 0, 0, 100, 45, 75, 40, 0),
   /*23structure*/array(0, 35, 35, 40, 40, 35, 10, 15, 0, 0, 0, 0, 45, 0, 35, 10, 0, 0, 0, 0, 0, 35, 10, 0, 0, 0),
   /*24stronghold*/array(0, 35, 35, 40, 40, 35, 10, 15, 0, 0, 0, 0, 45, 0, 35, 10, 0, 0, 0, 0, 0, 35, 10, 0, 0, 0), 
-  /*25sparrow bomb*/array(),
+  /*25sparrow bomb*/array(100, 120, 80, 120, 85, 135, 45, 60, 75, 65, 60, 100, 110, 0, 0, 0, 0, 0, 0, 0, 0, 100, 45, 75, 40, 55),
 );
 
 $unitA = $unitD = 1;
@@ -137,11 +137,6 @@ function attackError($unitA, $unitD, $spaces, $weather) {
 }
 
 function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $spaces, $weather) {
-  $sparrowBomb = FALSE;
-  if ($unitA == 25) {
-    $sparrowBomb = TRUE;
-    $unitA = 22;
-  }
   $attackErr = attackError($unitA, $unitD, $spaces, $weather);
   if ($attackErr != 0) {
     return array($attackErr => 100);
@@ -162,7 +157,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
   $cDefHealth = ($cDefense >= 0 ? $healthD : 1) / 100;
   $cx = $cPower * $cCrit * $cWeather;
   $cz = $cAtkHealth * (1 - ($cDefHealth * $cDefense / 10));
-  if ($sparrowBomb) $cz /= 2;
+  if ($unitA == 25) $cz /= 2;
   $minAttack = min($healthD, max(0, ($cx - 5) * $cz));
   $maxAttack = min($healthD, max(0, ($cx + 5) * $cz));
   $possibleAttacks = range(round($minAttack), round($maxAttack));
