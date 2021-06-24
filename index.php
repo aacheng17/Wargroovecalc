@@ -161,6 +161,7 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
   $minAttack = min($healthD, max(0, ($cx - 5) * $cz));
   $maxAttack = min($healthD, max(0, ($cx + 5) * $cz));
   $possibleAttacks = range(round($minAttack), round($maxAttack));
+  if (count($possibleAttacks) == 1) return array($possibleAttacks[0] => 100);
 
   $rands = array(-5);
   foreach(range(round($minAttack), round($maxAttack) - 1) as $attack) {
