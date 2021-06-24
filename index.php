@@ -130,9 +130,6 @@ function attackError($unitA, $unitD, $spaces, $weather) {
   if ($spaces < $unitRangesMin[$unitA] || $spaces > $unitRangesMax[$unitA] + $rangeMod) {
     return -2;
   }
-  if (in_array($unitA, array(9, 10, 25))) {
-    return -3;
-  }
   return 0;
 }
 
@@ -184,6 +181,9 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
 }
 
 function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces, $attackResults) {
+  if (in_array($unitA, array(9, 10, 25))) {
+    return array(-3 => 100);
+  }
   $attackErr = attackError($unitA, $unitD, $spaces, $weather);
   if ($attackErr != 0) {
     return array($attackErr => 100);
