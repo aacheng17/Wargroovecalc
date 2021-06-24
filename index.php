@@ -9,40 +9,41 @@
 <link rel="stylesheet" href="style.css" type="text/css">
 
 <?php
-$unitsA = array(1, 2, 3, 4, 5, 6, 7, 9, 10, 12, 14, 15, 16, 18, 19, 20, 21, 22);
-$unitNames = array("(0) villager", "(1) soldier", "(2) spearman", "(3) dog", "(4) mage", "(5) archer", "(6) giant", "(7) cavalry", "(8) wagon", "(9) ballista", "(10) trebuchet", "(11) thief", "(12) rifleman", "(13) balloon", "(14) aeronaut", "(15) sky rider", "(16) dragon", "(17) barge", "(18) turtle", "(19) harpoon ship", "(20) warship", "(21) amphibian", "(22) commander", "(23) structure", "(24) stronghold");
-$unitCrits = array(1.5, 1.5, 1.5, 1.5, 1.35, 1.5, 1.5, 1.5, 2.5, 1.5, 1.25, 2, 2, 2, 1.5, 1.5, 1.5, 1, 1);
-$unitRangesMin = [0, 1, 1, 1, 1, 1, 1, 1, 0, 2, 2, 0, 1, 0, 1, 1, 1, 0, 1, 3, 2, 1, 1, 1, 1];
-$unitRangesMax = [0, 1, 1, 1, 1, 3, 1, 1, 0, 6, 5, 0, 9, 0, 1, 1, 1, 0, 1, 6, 4, 2, 1, 1, 1];
+$unitsA = array(1, 2, 3, 4, 5, 6, 7, 9, 10, 12, 14, 15, 16, 18, 19, 20, 21, 22, 25);
+$unitNames = array("(0) villager", "(1) soldier", "(2) spearman", "(3) dog", "(4) mage", "(5) archer", "(6) giant", "(7) cavalry", "(8) wagon", "(9) ballista", "(10) trebuchet", "(11) thief", "(12) rifleman", "(13) balloon", "(14) aeronaut", "(15) sky rider", "(16) dragon", "(17) barge", "(18) turtle", "(19) harpoon ship", "(20) warship", "(21) amphibian", "(22) commander", "(23) structure", "(24) stronghold", "(25) sparrow bomb");
+$unitCrits = array(1.5, 1.5, 1.5, 1.5, 1.35, 1.5, 1.5, 1.5, 2.5, 1.5, 1.25, 2, 2, 2, 1.5, 1.5, 1.5, 1, 1, 1);
+$unitRangesMin = [0, 1, 1, 1, 1, 1, 1, 1, 0, 2, 2, 0, 1, 0, 1, 1, 1, 0, 1, 3, 2, 1, 1, 1, 1, 1];
+$unitRangesMax = [0, 1, 1, 1, 1, 3, 1, 1, 0, 6, 5, 0, 9, 0, 1, 1, 1, 0, 1, 6, 4, 2, 1, 1, 1, 1];
 $terrainNames = array("road (0)", "bridge (0)", "plains (1)", "forest (3)", "mountain (4)", "beach (-1)", "sea (1)", "deep sea (0)", "river (-2)", "reef (2)", "flagstone (2)", "carpet (2)");
 $terrainDefenses = array(0, 0, 1, 3, 4, -1, 1, 0, -2, 2, 2, 2);
 $weathers = array("sun", "rain", "wind");
 $damageMatrix = array(
-  /*0villager*/array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-  /*1solder*/array(60, 60, 40, 50, 60, 70, 10, 20, 40, 40, 35, 100, 75, 0, 0, 0, 0, 0, 0, 0, 0, 60, 15, 40, 22),
-  /*2spearman*/array(80, 80, 60, 85, 70, 75, 15, 75, 50, 60, 55, 80, 90, 0, 0, 0, 0, 0, 0, 0, 0, 80, 20, 55, 30),
-  /*3dog*/array(80, 80, 50, 70, 60, 80, 10, 15, 35, 45, 40, 90, 115, 0, 0, 0, 0, 0, 0, 0, 0, 80, 20, 25, 15),
-  /*4mage*/array(105, 90, 80, 85, 40, 90, 25, 35, 60, 35, 50, 90, 100, 105, 145, 135, 85, 0, 0, 0, 0, 60, 25, 40, 22),
-  /*5archer*/array(75, 75, 60, 80, 80, 70, 15, 45, 40, 35, 30, 75, 85, 25, 35, 25, 15, 25, 25, 25, 25, 75, 10, 25, 15),
-  /*6giant*/array(135, 155, 105, 155, 115, 155, 50, 90, 80, 105, 110, 135, 145, 0, 0, 0, 0, 0, 0, 0, 0, 135, 40, 90, 48),
-  /*7cavalry*/array(95, 95, 50, 125, 115, 105, 30, 60, 60, 90, 85, 95, 105, 0, 0, 0, 0, 0, 0, 0, 0, 90, 30, 70, 37),
-  /*8wagon*/array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-  /*9ballista*/array(45, 45, 35, 55, 45, 35, 15, 30, 35, 25, 15, 45, 55, 115, 135, 100, 90, 25, 25, 25, 25, 45, 15, 35, 20),
-  /*10trebuchet*/array(105, 105, 85, 115, 95, 125, 60, 85, 75, 90, 85, 105, 115, 0, 0, 0, 0, 85, 50, 70, 80, 105, 30, 90, 48),
-  /*11thief*/array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-  /*12rifleman*/array(125, 125, 105, 25, 105, 90, 10, 15, 15, 10, 10, 105, 90, 0, 0, 0, 0, 0, 0, 0, 0, 80, 10, 10, 8),
-  /*13balloon*/array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-  /*14aeronaut*/array(70, 70, 50, 60, 30, 80, 15, 80, 40, 40, 60, 70, 80, 60, 60, 35, 40, 40, 30, 30, 50, 70, 20, 55, 30),
-  /*15sky rider*/array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 55, 65, 40, 40, 0, 0, 0, 0, 0, 0, 0, 0),
-  /*16dragon*/array(125, 125, 125, 155, 70, 145, 70, 105, 85, 115, 110, 125, 135, 0, 0, 0, 0, 110, 75, 70, 90, 120, 40, 70, 37),
-  /*17barge*/array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-  /*18turtle*/array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 60, 55, 40, 85, 115, 0, 0, 0),
-  /*19harpoon ship*/array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 135, 85, 75, 50, 80, 35, 20, 35, 0, 0, 0),
-  /*20warship*/array(105, 105, 80, 115, 85, 125, 60, 75, 65, 90, 85, 105, 115, 0, 0, 0, 0, 70, 35, 85, 60, 80, 30, 80, 43),
-  /*21amphibian*/array(40, 40, 30, 50, 50, 40, 10, 20, 40, 30, 25, 40, 50, 0, 0, 0, 0, 15, 15, 35, 15, 30, 15, 20, 13),
-  /*22commander*/array(100, 120, 80, 120, 85, 135, 45, 60, 75, 65, 60, 100, 110, 0, 0, 0, 0, 0, 0, 0, 0, 100, 45, 75, 40),
-  /*23structure*/array(0, 35, 35, 40, 40, 35, 10, 15, 0, 0, 0, 0, 45, 0, 35, 10, 0, 0, 0, 0, 0, 35, 10, 0, 0),
-  /*24stronghold*/array(0, 35, 35, 40, 40, 35, 10, 15, 0, 0, 0, 0, 45, 0, 35, 10, 0, 0, 0, 0, 0, 35, 10, 0, 0)
+  /*0villager*/array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+  /*1solder*/array(60, 60, 40, 50, 60, 70, 10, 20, 40, 40, 35, 100, 75, 0, 0, 0, 0, 0, 0, 0, 0, 60, 15, 40, 22, 0),
+  /*2spearman*/array(80, 80, 60, 85, 70, 75, 15, 75, 50, 60, 55, 80, 90, 0, 0, 0, 0, 0, 0, 0, 0, 80, 20, 55, 30, 0),
+  /*3dog*/array(80, 80, 50, 70, 60, 80, 10, 15, 35, 45, 40, 90, 115, 0, 0, 0, 0, 0, 0, 0, 0, 80, 20, 25, 15, 0),
+  /*4mage*/array(105, 90, 80, 85, 40, 90, 25, 35, 60, 35, 50, 90, 100, 105, 145, 135, 85, 0, 0, 0, 0, 60, 25, 40, 22, 55),
+  /*5archer*/array(75, 75, 60, 80, 80, 70, 15, 45, 40, 35, 30, 75, 85, 25, 35, 25, 15, 25, 25, 25, 25, 75, 10, 25, 15, 55),
+  /*6giant*/array(135, 155, 105, 155, 115, 155, 50, 90, 80, 105, 110, 135, 145, 0, 0, 0, 0, 0, 0, 0, 0, 135, 40, 90, 48, 0),
+  /*7cavalry*/array(95, 95, 50, 125, 115, 105, 30, 60, 60, 90, 85, 95, 105, 0, 0, 0, 0, 0, 0, 0, 0, 90, 30, 70, 37, 0),
+  /*8wagon*/array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+  /*9ballista*/array(45, 45, 35, 55, 45, 35, 15, 30, 35, 25, 15, 45, 55, 115, 135, 100, 90, 25, 25, 25, 25, 45, 15, 35, 20, 55),
+  /*10trebuchet*/array(105, 105, 85, 115, 95, 125, 60, 85, 75, 90, 85, 105, 115, 0, 0, 0, 0, 85, 50, 70, 80, 105, 30, 90, 48, 0),
+  /*11thief*/array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+  /*12rifleman*/array(125, 125, 105, 25, 105, 90, 10, 15, 15, 10, 10, 105, 90, 0, 0, 0, 0, 0, 0, 0, 0, 80, 10, 10, 8, 0),
+  /*13balloon*/array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+  /*14aeronaut*/array(70, 70, 50, 60, 30, 80, 15, 80, 40, 40, 60, 70, 80, 60, 60, 35, 40, 40, 30, 30, 50, 70, 20, 55, 30, 55),
+  /*15sky rider*/array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 55, 65, 40, 40, 0, 0, 0, 0, 0, 0, 0, 0, 55),
+  /*16dragon*/array(125, 125, 125, 155, 70, 145, 70, 105, 85, 115, 110, 125, 135, 0, 0, 0, 0, 110, 75, 70, 90, 120, 40, 70, 37, 0),
+  /*17barge*/array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+  /*18turtle*/array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 60, 55, 40, 85, 115, 0, 0, 0, 0),
+  /*19harpoon ship*/array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 135, 85, 75, 50, 80, 35, 20, 35, 0, 0, 0, 55),
+  /*20warship*/array(105, 105, 80, 115, 85, 125, 60, 75, 65, 90, 85, 105, 115, 0, 0, 0, 0, 70, 35, 85, 60, 80, 30, 80, 43, 0),
+  /*21amphibian*/array(40, 40, 30, 50, 50, 40, 10, 20, 40, 30, 25, 40, 50, 0, 0, 0, 0, 15, 15, 35, 15, 30, 15, 20, 13, 0),
+  /*22commander*/array(100, 120, 80, 120, 85, 135, 45, 60, 75, 65, 60, 100, 110, 0, 0, 0, 0, 0, 0, 0, 0, 100, 45, 75, 40, 0),
+  /*23structure*/array(0, 35, 35, 40, 40, 35, 10, 15, 0, 0, 0, 0, 45, 0, 35, 10, 0, 0, 0, 0, 0, 35, 10, 0, 0, 0),
+  /*24stronghold*/array(0, 35, 35, 40, 40, 35, 10, 15, 0, 0, 0, 0, 45, 0, 35, 10, 0, 0, 0, 0, 0, 35, 10, 0, 0, 0), 
+  /*25sparrow bomb*/array(),
 );
 
 $unitA = $unitD = 1;
@@ -129,10 +130,18 @@ function attackError($unitA, $unitD, $spaces, $weather) {
   if ($spaces < $unitRangesMin[$unitA] || $spaces > $unitRangesMax[$unitA] + $rangeMod) {
     return -2;
   }
+  if (in_array($unitA, array(9, 10, 25))) {
+    return 1;
+  }
   return 0;
 }
 
 function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $spaces, $weather) {
+  $sparrowBomb = FALSE;
+  if ($unitA == 25) {
+    $sparrowBomb = TRUE;
+    $unitA = 22;
+  }
   $attackErr = attackError($unitA, $unitD, $spaces, $weather);
   if ($attackErr != 0) {
     return array($attackErr => 100);
@@ -145,14 +154,15 @@ function calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, 
   }
   $cCrit = $critA ? $unitCrits[$unitA] : 1;
   $cWeather = 1;
-  if ($unitA >= 14 && $unitA <= 16 && $weather != 0) {
+  if (($unitA >= 14 && $unitA <= 16 || $unitA == 25) && $weather != 0) {
     $cWeather = $weather == 1 ? 0.8 : 1.2;
   }
   $cAtkHealth = $healthA / 100;
-  $cDefense = $unitD < 13 || $unitD > 16 ? $terrainDefenses[$terrainD] : 1;
+  $cDefense = $unitD < 13 || $unitD > 16 || $unitD == 25 ? $terrainDefenses[$terrainD] : 1;
   $cDefHealth = ($cDefense >= 0 ? $healthD : 1) / 100;
   $cx = $cPower * $cCrit * $cWeather;
   $cz = $cAtkHealth * (1 - ($cDefHealth * $cDefense / 10));
+  if ($sparrowBomb) $cz /= 2;
   $minAttack = min($healthD, max(0, ($cx - 5) * $cz));
   $maxAttack = min($healthD, max(0, ($cx + 5) * $cz));
   $possibleAttacks = range(round($minAttack), round($maxAttack));
@@ -271,19 +281,18 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
 <div id="div-result" class="main-div">
   <?php
   function handleAttackError($calcResults) {
-    if (array_key_exists(-1, $calcResults)) {
-      return 'This unit cannot target that unit';
-    }
-    if (array_key_exists(-2, $calcResults)) {
-      return 'The defending unit is out of range';
-    }
+    if (array_key_exists(-1, $calcResults)) return 1;
+    if (array_key_exists(-2, $calcResults)) return 2;
+    if (array_key_exists(-3, $calcResults)) return 3;
+    return 0;
   }
+  $attackErrors = array('No error', 'This unit cannot target that unit', 'The defending unit is out of range', 'This unit cannot counterattack');
   echo '<h2>Result:</h2>';
   echo 'Attack damage possibilities:<br/>';
   $calcResults = calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $spaces, $weather);
-  $attackErr = handleAttackError($calcResults);
-  if ($attackErr != 0) {
-    echo $attackErr;
+  $err = handleAttackError($calcResults);
+  if ($err != 0 && $err != 3) {
+    echo $attackErrors[$err];
   } else {
     foreach($calcResults as $damage => $prob) {
       echo $damage . '(' . round($prob, 1) . ') ';
@@ -292,9 +301,9 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
     foreach($calcResults as $damage => $prob) {
       $caResults = calcCounterattack($unitD, $healthD, $terrainD, $critD, $unitA, $healthA, $terrainA, $critA, $spaces, $weather, $calcResults);
     }
-    $attackErr = handleAttackError($caResults);
-    if ($attackErr != 0) {
-      echo $attackErr;
+    $err = handleAttackError($caResults);
+    if ($err != 0) {
+      echo $attackErrors[$err];
     } else {
       foreach($caResults as $damage => $prob) {
         echo $damage . '('. $prob . ') ';
