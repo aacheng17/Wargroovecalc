@@ -198,13 +198,14 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
       } else {
         $ret[0] = 100;
       }
-    }
-    $calcResult = calc($unitA, $healthA - $damage, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces, $damage);
-    foreach($calcResult as $caDamage => $caProb) {
-      if (array_key_exists($caDamage, $ret)) {
-        $ret[$caDamage] += $caProb;
-      } else {
-        $ret[$caDamage] = $caProb;
+    } else {
+      $calcResult = calc($unitA, $healthA - $damage, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces, $damage);
+      foreach($calcResult as $caDamage => $caProb) {
+        if (array_key_exists($caDamage, $ret)) {
+          $ret[$caDamage] += $caProb;
+        } else {
+          $ret[$caDamage] = $caProb;
+        }
       }
     }
   }
@@ -289,7 +290,7 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
     if (array_key_exists(-3, $calcResults)) return 3;
     return 0;
   }
-  $attackErrors = array('No error', 'This unit cannot target that unit', 'The defending unit is out of range', 'This unit cannot counterattack');
+  $attackErrors = array('No error', 'This unit cannot target that unit', 'The target is out of range', 'This unit cannot counterattack');
   echo '<h2>Result:</h2>';
   echo 'Attack damage possibilities:<br/>';
   $calcResults = calc($unitA, $healthA, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $spaces, $weather);
