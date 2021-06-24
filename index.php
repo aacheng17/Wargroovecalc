@@ -192,14 +192,15 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
   if ($healthA <= 0) return array(0 => 100);
   $ret = array();
   foreach($attackResults as $damage => $prob) {
-    echo 'a' . $healthA . 'b' . $damage . 'c';
     if ($unitA == 25 && $healthA - $damage > 0) {
+      echo 'a';
       if (array_key_exists(0, $ret)) {
         $ret[0] += 100;
       } else {
         $ret[0] = 100;
       }
     } else {
+      echo 'b';
       $calcResult = calc($unitA, $healthA - $damage, $terrainA, $critA, $unitD, $healthD, $terrainD, $critD, $weather, $spaces, $damage);
       foreach($calcResult as $caDamage => $caProb) {
         if (array_key_exists($caDamage, $ret)) {
