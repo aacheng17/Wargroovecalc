@@ -25,6 +25,7 @@ function setCheckboxReadonly(checkbox, readonly) {
 
 function checkCrit(unitA, healthA, terrainA, critA, terrainD) {
     setCheckboxReadonly(critA, true);
+    console.log(unitA.value);
     switch (unitA.value) {
     case "4":
         critA.checked = terrainDefenses[terrainA.value] >= 3;
@@ -47,19 +48,19 @@ function checkCrit(unitA, healthA, terrainA, critA, terrainD) {
         critA.checked = spaces.value == 5 || (spaces.value == 6 && weather.value == 2);
         break;
     case "14":
-        critA.checked = terrainA.value === "4";
+        critA.checked = terrainA.value == "4";
         break;
     case "16":
-        critA.checked = terrainD.value === "0";
+        critA.checked = terrainD.value == "0";
         break;
     case "18":
-        critA.checked = terrainA.value === "7";
+        critA.checked = terrainA.value == "7";
         break;
     case "19":
-        critA.checked = terrainA.value === "9";
+        critA.checked = terrainA.value == "9";
         break;
     case "20":
-        critA.checked = terrainA.value === "5";
+        critA.checked = terrainA.value == "5";
         break;
     case "21":
         critA.checked = ["6", "7", "8", "9"].includes(terrainA.value);
