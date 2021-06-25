@@ -103,7 +103,7 @@ healthD.onchange = function() { checkCritD(); };
 terrainD.onchange = function() { checkCritA(); checkCritD(); };
 spaces.onchange = function() { checkCritA(); checkCritD(); };
 weather.onchange = function() { checkCritA(); checkCritD(); };
-buttonSwap.onclick = function() { swap(); };
+buttonSwap.onclick = function(e) { e.preventDefault(); swap(); };
 
 checkCritA();
 checkCritD();
