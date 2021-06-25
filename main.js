@@ -25,7 +25,6 @@ function setCheckboxReadonly(checkbox, readonly) {
 
 function checkCrit(unitA, healthA, terrainA, critA, terrainD) {
     setCheckboxReadonly(critA, true);
-    console.log(unitA.value);
     switch (unitA.value) {
     case "4":
         critA.checked = terrainDefenses[terrainA.value] >= 3;
