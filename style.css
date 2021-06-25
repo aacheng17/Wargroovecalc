@@ -13,17 +13,23 @@ body {
     text-align: center;
 }
 
-.vertical-text {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-}
-
 .grey {
     color: grey;
 }
 
 .main-div {
     padding: 10px 0px;
+}
+
+#div-middle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#button-swap {
+    padding: 5px;
+    font-weight: bold;
 }
 
 #button-calc {

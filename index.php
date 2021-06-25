@@ -246,8 +246,10 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
     <label><?php echo '<input type="checkbox" id="critA" name="critA"' . ($critA ? " checked" : "") . '>' ?>Crit</label>
   </div>
 
-  <img src="icon-attack.png" alt="Attack" width="75px" height="75px">
-  <button id="button-swap"><a class="vertical-text">swap</a></button>
+  <div id="middle-div">
+    <img src="icon-attack.png" alt="Attack" width="75px" height="75px">
+    <button id="button-swap">swap</button>
+  </div>
 
   <div id="div-defend" class="main-div">
     <select name="unitD" id="unitD" form="calc-form"><?php
