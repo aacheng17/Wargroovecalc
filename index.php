@@ -247,6 +247,7 @@ function calcCounterattack($unitA, $healthA, $terrainA, $critA, $unitD, $healthD
   </div>
 
   <img src="icon-attack.png" alt="Attack" width="75px" height="75px">
+  <button id="button-swap" class="vertical-text">swap</button>
 
   <div id="div-defend" class="main-div">
     <select name="unitD" id="unitD" form="calc-form"><?php

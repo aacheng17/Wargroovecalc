@@ -10,6 +10,7 @@ var terrainD = document.getElementById("terrainD");
 var critD = document.getElementById("critD");
 var spaces = document.getElementById("spaces");
 var weather = document.getElementById("weather");
+var buttonSwap = document.getElementById("button-swap");
 
 function setCheckboxReadonly(checkbox, readonly) {
     if (readonly) {
@@ -77,6 +78,23 @@ function checkCritD() {
     checkCrit(unitD, healthD, terrainD, critD, terrainA);
 }
 
+function swap() {
+    var tempUnit = unitA.value;
+    var tempHealth = healthA.value;
+    var tempTerrain = terrainA.value;
+    var tempCrit = critA.checked;
+    unitA.value = unitD.value;
+    healthA.value = healthD.value;
+    terrainA.value = terrainD.value;
+    critA.checked = critD.checked;
+    unitD.value = tempUnit;
+    healthD.value = tempHealth;
+    terrainD.value = tempTerrain;
+    critD.checked = tempCrit;
+    checkCritA();
+    checkCritD();
+}
+
 unitA.onchange = function() { checkCritA(); };
 healthA.onchange = function() { checkCritA(); };
 terrainA.onchange = function() { checkCritA(); checkCritD(); };
@@ -85,6 +103,7 @@ healthD.onchange = function() { checkCritD(); };
 terrainD.onchange = function() { checkCritA(); checkCritD(); };
 spaces.onchange = function() { checkCritA(); checkCritD(); };
 weather.onchange = function() { checkCritA(); checkCritD(); };
+buttonSwap.onclick = function() { swap(); };
 
 checkCritA();
 checkCritD();
