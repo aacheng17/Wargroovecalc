@@ -63,7 +63,7 @@ function checkCrit(unitA, healthA, terrainA, critA, terrainD) {
         critA.checked = terrainA.value == "5";
         break;
     case "21":
-        critA.checked = ["6", "7", "8", "9"].includes(terrainA.value);
+        //critA.checked = ["6", "7", "8", "9"].includes(terrainA.value);
         break;
     default:
         setCheckboxReadonly(critA, false);
