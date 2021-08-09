@@ -11,7 +11,7 @@
 <?php
 $unitsA = array(1, 2, 3, 4, 5, 6, 7, 9, 10, 12, 14, 15, 16, 18, 19, 20, 21, 22, 25);
 $unitNames = array("(0) villager", "(1) soldier", "(2) spearman", "(3) dog", "(4) mage", "(5) archer", "(6) giant", "(7) cavalry", "(8) wagon", "(9) ballista", "(10) trebuchet", "(11) thief", "(12) rifleman", "(13) balloon", "(14) aeronaut", "(15) sky rider", "(16) dragon", "(17) barge", "(18) turtle", "(19) harpoon ship", "(20) warship", "(21) amphibian", "(22) commander", "(23) structure", "(24) stronghold", "(25) sparrow bomb", "(26) vine", "(27) crystal");
-$unitCrits = array(1.5, 1.5, 1.5, 1.5, 1.35, 1.5, 1.5, 1.5, 2.5, 1.5, 1.25, 2, 2, 2, 1.5, 1.5, 1.5, 1, 1, 1, 1, 1);
+$unitCrits = array(0, 1.5, 1.5, 1.5, 1.5, 1.35, 2.5, 1.5, 0, 1.5, 1.5, 0, 1.5, 0, 1.25, 2, 2, 0, 1.5, 1.5, 1.5, 2, 1, 1, 1, 1, 0, 0);
 $unitRangesMin = [0, 1, 1, 1, 1, 1, 1, 1, 0, 2, 2, 0, 1, 0, 1, 1, 1, 0, 1, 3, 2, 1, 1, 1, 1, 1, 0, 0];
 $unitRangesMax = [0, 1, 1, 1, 1, 3, 1, 1, 0, 6, 5, 0, 9, 0, 1, 1, 1, 0, 1, 6, 4, 2, 1, 1, 1, 1, 0, 0];
 $terrainNames = array("road (0)", "bridge (0)", "plains (1)", "forest (3)", "mountain (4)", "beach (-1)", "sea (1)", "deep sea (0)", "river (-2)", "reef (2)", "flagstone (2)", "carpet (2)");
